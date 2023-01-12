@@ -10,32 +10,41 @@ const ticketsSchema = new Schema({
 
     client : {
         type : String,
-        req
+        required : true
     },
 
-    city : {
+    topic : {
         type : String,
         required : true
     },
 
-    state:{
+    assignedTo :{
         type: String,
         required : true
     },
 
-    country:{
+    status :{
         type: String,
         required : true
     },
 
-    noofstudents:{
-        type: Number,
+    priority :{
+        type: String,
         required : true
     },
    
-    courselist : [{
-        type:String,
-    }]
+    createdAt : {
+        type: Date,
+        default: Date.now
+      },
+    dueDate : {
+        type: Date,
+        require: true
+      },
+    lastActivity : {
+        type: String,
+        required : true
+    }
 })
 
 

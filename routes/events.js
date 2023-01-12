@@ -1,15 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const Events = require("../models/Events.js");
+const moment = require("moment");
 
 router.post('/', async (req, res, next) => {
 
-    const { eventname, eventcategory, eventdate } = req.body;
+    const { eventName, eventCategory, eventDate } = req.body;
 
     const events = new Events({
-    eventname,
-    eventcategory,
-    eventdate
+        eventName, eventCategory, eventDate
     });
     console.log(events)
     try{
@@ -21,11 +20,13 @@ router.post('/', async (req, res, next) => {
     }
 
 })
-
+ 
 router.get('/', async (req, res) => {
 
     try{
-        const events = await Events.find()
+        const events = await Events.find({
+            start: { $gte: moment(req.start).toDate() },
+        })
         res.status(200).json(events)
     }
 
@@ -35,7 +36,7 @@ router.get('/', async (req, res) => {
 
 })
 
-router.get('/geteventsinfo/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
 
     try{
         const events = await Events.findById(req.params.id)

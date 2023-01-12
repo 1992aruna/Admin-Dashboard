@@ -3,27 +3,28 @@ const Schema = mongoose.Schema;
 
 
 const taskSchema = new Schema({
-    taskname : {
+    taskName : {
         type : String,
         required : true
     },
 
     description : {
-        type : String,
-        required : true
+        type: String,
+        required: [true, 'Please add a description'],
+        maxlength: [500, 'Description can not be more than 500 characters']
     },
 
-    taskstartdate : {
+    taskStartDate : {
         type : Date,
         required : true
     },
 
-    taskenddate : {
+    taskEndDate : {
         type : Date,
         required : true
     },
 
-    addteammember : {
+    addTeamMember : {
         type: String,
         required : true
     },

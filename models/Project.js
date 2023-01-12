@@ -10,18 +10,19 @@ const projectSchema = new Schema({
 
     image : {
         type : String,
-        required : true
+        default: 'no-image.jpg'
+    },
+    
+    projectDescription : {
+        type: String,
+        required: [true, 'Please add a description'],
+        maxlength: [500, 'Description can not be more than 500 characters']
     },
 
-    projectdescription : {
-        type : String,
-        required : true
-    },
-
-    keydetails : {
+    keyDetails : {
         img : {
         type: String,
-        data : buffer
+        required : true
     }
         
     },
@@ -35,20 +36,20 @@ const projectSchema = new Schema({
         type: String,
         required : true
     },
-    publisheddate : {
+    publishedDate : {
         type : Date,
         required : true
     },
-    deadline : {
+    deadLine : {
         type : Date,
         required : true
     },
-    attachedfiles : {
+    attachedFiles : {
         type: Number,
         required : true
     },
     tags: {
-        categories : {
+        category : {
             type: String,
             required : true
         },
@@ -58,28 +59,28 @@ const projectSchema = new Schema({
         }
         
     },
-    teamlead: {
+    teamLead: {
         type: String,
         required : true
     },
-    teammember: {
+    teamMember: {
         type: String,
         required : true
     },
-    authorisationmember: {
+    authorisationMember: {
         type: String,
         required : true
     },
     activities: {
-        type: Number,
+        type: String,
         required : true
     },
-    commentsontheproject: {
+    commentsOnTheProject: {
         type: String,
         required : true
     },
      
-    correctionfromauthorisationmember : {
+    correctionFromAuthorisationMember : {
         type:String,
         required : true
     }
