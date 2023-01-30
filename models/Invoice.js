@@ -166,6 +166,22 @@ const invoiceSchema = mongoose.Schema({
             default: 0.0
         },
     },
+    createdBy : {
+        type : String,
+        required : true
+      },
+    createdAt : {
+        type: Date,
+        default: Date.now
+      },
+    lastUpdateBy : {
+        type : String,
+        required : true
+      },
+    lastUpdatedOn : {
+        type: Date,
+        default: Date.now
+      }
     
 })
 

@@ -6,7 +6,6 @@ const eventsSchema = new Schema({
     eventName : {
       type: String,
       required: [true, 'Please add a name'],
-      unique: true,
       trim: true,
       maxlength: [50, 'Name can not be more than 50 characters']
     
@@ -21,7 +20,26 @@ const eventsSchema = new Schema({
         type : Date,
         required : true
     },
-
+    createdBy : {
+        type : String,
+        required : true
+      },
+    createdAt : {
+        type: Date,
+        default: Date.now
+      },
+    lastUpdateBy : {
+        type : String,
+        required : true
+      },
+    lastUpdatedOn : {
+        type: Date,
+        default: Date.now
+      },
+    description : {
+        type : String,
+        required : true
+      }
 })
 
 

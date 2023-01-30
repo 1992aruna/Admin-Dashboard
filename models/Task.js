@@ -36,6 +36,26 @@ const taskSchema = new Schema({
     status : {
         type: String,
         required : true
+    },
+    createdBy : {
+        type : String,
+        required : true
+    },
+    createdAt : {
+        type: Date,
+        default: Date.now
+    },
+    lastUpdateBy : {
+        type : String,
+        required : true
+    },
+    lastUpdatedOn : {
+        type: Date,
+        default: Date.now
+    },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
     }
 })
 

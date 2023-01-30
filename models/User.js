@@ -26,8 +26,7 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['user', 'publisher'],
-    default: 'user'
+    enum: ['user', 'superadmin', 'statelevelhead', 'statelevelcoordinators', 'districtlevel', 'areahead', 'designers', 'postchecker']
   },
   
   resetPasswordToken: String,

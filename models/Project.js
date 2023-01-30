@@ -83,7 +83,23 @@ const projectSchema = new Schema({
     correctionFromAuthorisationMember : {
         type:String,
         required : true
-    }
+    },
+    createdBy : {
+        type : String,
+        required : true
+    },
+    createdAt : {
+        type: Date,
+        default: Date.now
+    },
+    lastUpdateBy : {
+        type : String,
+        required : true
+    },
+    lastUpdatedOn : {
+        type: Date,
+        default: Date.now
+    },
 })
 
 
