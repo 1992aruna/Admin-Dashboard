@@ -181,7 +181,11 @@ const invoiceSchema = mongoose.Schema({
     lastUpdatedOn : {
         type: Date,
         default: Date.now
-      }
+      },
+      user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+    }
     
 })
 

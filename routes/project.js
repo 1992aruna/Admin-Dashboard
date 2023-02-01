@@ -1,12 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const projectController = require("../controller/project controller.js");
+const projectController = require("../controller/projectcontroller.js");
+const { protect, authorize } = require('../middleware/aauth.js');
 
+router
+  .route('/')
+  .get(projectController.getAllProjects)
+  .post(protect, authorize('superadmin'), projectController.addProject);
+  
+router
+  .route('/:id')
+  .get(projectController.getById)
+  .put(protect, authorize('superadmin'), projectController.updateProject)
+  .delete(protect, authorize('superadmin'), projectController.deleteProject);
 
-router.post("/", projectController.addProject);
-router.get("/", projectController.getAllProjects);
-router.get("/:id", projectController.getById);
-router.put("/:id", projectController.updateProject);
-router.delete("/:id", projectController.deleteProject);
+  router.route('/alloted').put(protect, authorize('superadmin'), projectController.createAllotedFile);
+  router.route('/alloted').get(projectController.createAllotedFile)
 
 module.exports = router;

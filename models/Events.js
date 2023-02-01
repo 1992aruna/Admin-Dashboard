@@ -20,6 +20,10 @@ const eventsSchema = new Schema({
         type : Date,
         required : true
     },
+    status : {
+      type : String,
+      required : true
+  },
     createdBy : {
         type : String,
         required : true
@@ -39,7 +43,11 @@ const eventsSchema = new Schema({
     description : {
         type : String,
         required : true
-      }
+      },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+    }
 })
 
 

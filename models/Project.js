@@ -8,80 +8,43 @@ const projectSchema = new Schema({
         required : true
     },
 
-    image : {
-        type : String,
-        default: 'no-image.jpg'
-    },
-    
     projectDescription : {
         type: String,
         required: [true, 'Please add a description'],
         maxlength: [500, 'Description can not be more than 500 characters']
     },
 
-    keyDetails : {
-        img : {
-        type: String,
-        required : true
-    }
-        
+    sampleimage : {
+        type : String,
+        default: 'no-image.jpg'
     },
-
-    priority : {
-        type: String,
+    dueDate1 : {
+        type : Date,
         required : true
     },
-
+    dueDate2 : {
+        type : Date,
+        required : true
+    },
+    compulsoryWordings: {
+        type: String,
+        required : true
+    },
+    colors: {
+        type: String,
+        enum: ["Black", "Brown", "Silver", "White", "Blue"],
+      },
+    leaderPhoto: {
+        type: String,
+        required : true,
+        maxsize : 400
+    },
     status : {
         type: String,
         required : true
     },
-    publishedDate : {
-        type : Date,
-        required : true
-    },
-    deadLine : {
-        type : Date,
-        required : true
-    },
-    attachedFiles : {
-        type: Number,
-        required : true
-    },
-    tags: {
-        category : {
-            type: String,
-            required : true
-        },
-        skills : {
-            type: String,
-            required : true
-        }
-        
-    },
-    teamLead: {
+    approvedStatus : {
         type: String,
-        required : true
-    },
-    teamMember: {
-        type: String,
-        required : true
-    },
-    authorisationMember: {
-        type: String,
-        required : true
-    },
-    activities: {
-        type: String,
-        required : true
-    },
-    commentsOnTheProject: {
-        type: String,
-        required : true
-    },
-     
-    correctionFromAuthorisationMember : {
-        type:String,
         required : true
     },
     createdBy : {
@@ -100,6 +63,48 @@ const projectSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
+    },
+    allotedFile: {
+        designerName : {
+            type: String,
+            required : true
+        },
+        date : {
+            type: Date,
+            required : true
+        },
+        version1 : {
+            versionName : {
+                type: String,
+                required : true
+            },
+            versionFile : {
+                type: String,
+                required : true
+            }
+        },
+        comment : {
+            type: String,
+            required : true
+        },
+        feedback : {
+            type: String,
+            required : true
+        },
+        finalFile : {
+            type: Number,
+            required : true
+        },  
+        user: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
+            required: true
+        }
+    }
+
 })
 
 

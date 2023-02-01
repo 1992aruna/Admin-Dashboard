@@ -60,6 +60,10 @@ const ticketsSchema = new Schema({
     description : {
         type : String,
         required : true
+    },
+    user: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User',
     }
 
 })
