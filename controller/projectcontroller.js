@@ -6,7 +6,7 @@ const addProject = async (req, res, next) => {
   const { 
     title,
     projectDescription ,
-    sampleimage,
+    sampleImage,
     dueDate1,
     dueDate2,
     compulsoryWordings,
@@ -26,7 +26,7 @@ const addProject = async (req, res, next) => {
         project = new Project({
           title,
           projectDescription ,
-          sampleimage,
+          sampleImage,
           dueDate1,
           dueDate2,
           compulsoryWordings,
@@ -64,7 +64,7 @@ const getAllProjects = async (req, res) => {
       }
     
       if (!projects) {
-        return res.status(404).json({ message: "No ProjectsgetAllProjects found" });
+        return res.status(404).json({ message: "No Projects found" });
       }
       return res.status(200).json({ projects });
     };
@@ -95,14 +95,14 @@ const updateProject = async (req, res, next) => {
     const { 
       title,
       projectDescription ,
-      sampleimage,
+      sampleImage,
       dueDate1,
       dueDate2,
       compulsoryWordings,
       colors,
       leaderPhoto,
       status,
-      //allotedFile,
+      allotedFile,
       approvedStatus,
       lastUpdateBy,
       lastUpdatedOn    
@@ -113,14 +113,14 @@ const updateProject = async (req, res, next) => {
         project = await Project.findByIdAndUpdate(id,{
           title,
           projectDescription ,
-          sampleimage,
+          sampleImage,
           dueDate1,
           dueDate2,
           compulsoryWordings,
           colors,
           leaderPhoto,
           status,
-          //allotedFile,
+          allotedFile,
           approvedStatus,
           lastUpdateBy,
           lastUpdatedOn
@@ -159,41 +159,61 @@ const deleteProject = async (req, res) => {
 }
 
 const createAllotedFile = async (req, res, next) => {
-  const id = req.params.id;
+
+  const _id = req.params._id;
   const { 
-      designerName,
+    date,
+    version1,
+    comment,
+    feedback,
+    finalFile,
+    projectId 
+} = req.body;
+  const allotedFile = {
+      user: req.user._id,
+      designerName: req.user.name,
       date,
       version1,
       comment,
       feedback,
-      finalFile 
-   } = req.body;  
-  
-  let allotedFile;
-  try{
-      allotedFile = await AllotedFile.findByIdAndUpdate(id,{
-          designerName,
-          date,
-          version1,
-          comment,
-          feedback,
-          finalFile  
-      },{new:true},);
-      req.body.user = req.user.id;
-      console.log(allotedFile)
-      allotedFile = await allotedFile.save()
-      
+      finalFile
   }
-  catch (err) {
-      console.log(err);
-    }
-  if (!allotedFile && req.user.role !== 'designer') {
-    return res.status(500).json({ message: "Unauthorized user Unable To Create" });
+
+  const project = await Project.findById(projectId);
+
+  console.log(project.allotedFiles);
+
+  const isAlloted = project.allotedFiles.find(
+      r => r.user.toString() === req.user._id.toString()
+  )
+
+  if (isAlloted) {
+      project.allotedFiles.forEach(allotedFile => {
+          if (allotedFile.user.toString() === req.user._id.toString()) {
+              allotedFile.date = date;
+              allotedFile.version1 = version1;
+              allotedFile.comment = comment;
+              allotedFile.feedback = feedback;
+              allotedFile.finalFile = finalFile;
+          }
+      })
+
+  } else {
+      project.allotedFiles.push(allotedFile);
+      project.numOfAllotedFiles = project.allotedFiles.length
   }
-  return res.status(201).json({ allotedFile });
+  await project.save({ validateBeforeSave: false });
+
+  res.status(200).json({
+      success: true
+  })
 
 }
 
+
+
+
+  
 const getAllAllotedFiles = async (req, res) => {
   let allotedfiles;
   try{
