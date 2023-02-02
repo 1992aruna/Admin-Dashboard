@@ -14,7 +14,7 @@ const projectSchema = new Schema({
         maxlength: [500, 'Description can not be more than 500 characters']
     },
 
-    sampleimage : {
+    sampleImage : {
         type : String,
         default: 'no-image.jpg'
     },
@@ -67,7 +67,12 @@ const projectSchema = new Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User',
     },
-    allotedFile: {
+    allotedFile: [
+        {
+        user: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
+        },
         designerName : {
             type: String,
             required : true
@@ -97,15 +102,11 @@ const projectSchema = new Schema({
         finalFile : {
             type: Number,
             required : true
-        },  
-        user: {
-            type: mongoose.Schema.ObjectId,
-            ref: 'User',
-            required: true
         }
     }
+]
 
-})
+},)
 
 
 module.exports = mongoose.model('Project', projectSchema);
