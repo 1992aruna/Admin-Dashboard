@@ -14,7 +14,7 @@ router
   .put(protect, authorize('superadmin'), projectController.updateProject)
   .delete(protect, authorize('superadmin'), projectController.deleteProject);
 
-  router.route('/alloted').put(protect, authorize('superadmin'), projectController.createAllotedFile);
+  router.route('/project/alloted').put(projectController.createAllotedFile);
   router.route('/alloted').get(projectController.createAllotedFile)
 
 module.exports = router;
