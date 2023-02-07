@@ -16,6 +16,7 @@ const ticketRouter = require("./routes/tickets.js");
 const invoiceRouter = require("./routes/invoice.js");
 const userRouter = require("./routes/user.js");
 const authRouter = require("./routes/auth.js");
+const countDataRouter = require("./routes/countdata.js");
 
 
 
@@ -42,15 +43,14 @@ app.use(cors());
 
 
 
-app.use('/events', eventsRouter)
-app.use('/project', projectRouter)
-app.use('/task', taskRouter)
-app.use('/tickets', ticketRouter)
-app.use('/invoice', invoiceRouter)
-app.use('/user', userRouter)
+app.use('/events', eventsRouter);
+app.use('/project', projectRouter);
+app.use('/task', taskRouter);
+app.use('/tickets', ticketRouter);
+app.use('/invoice', invoiceRouter);
+app.use('/user', userRouter);
 app.use('/auth', authRouter);
-
-
+app.use('/data-count', countDataRouter);
 app.listen(PORT, () => {
     console.log(`Server  is running on port  ${PORT}`)
 })
